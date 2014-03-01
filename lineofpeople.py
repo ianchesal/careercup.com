@@ -44,8 +44,9 @@ we can make tree insertion decisions by looking at just data on each
 node as we move through the tree to try and figure out where to put a
 new node.
 
-This makes the average run time O(log N) (standard binary tree) with a
-worst-case insertion of O(N).
+This makes the average run time O(N log N) (one traversal of the array plus
+the log N time to do the inserts in to the binary tree) with a worst-case
+insertion of O(N).
 
 To test this code run:
 
