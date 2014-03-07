@@ -102,6 +102,21 @@ class Cache():
 		Put a new value in to the cache. If we're out of space, purge
 		the LRU object in to the cache to make room. If the key exists
 		already update the value stored at that key.
+
+		>>> c = Cache(max_size=1)
+		>>> c.put(1, 'one')
+		>>> print c.have.keys()
+		[1]
+		>>> c.put(2, 'two')
+		>>> print c.have.keys()
+		[2]
+		>>> c.get(2)
+		'two'
+		>>> c.put(2, 'three')
+		>>> print c.have.keys()
+		[2]
+		>>> c.get(2)
+		'three'
 		'''
 		if key in self.have:
 			self.have[key].value = value
@@ -110,7 +125,8 @@ class Cache():
 				# Purge the LRU object
 				temp = self.oldest
 				self.oldest = temp.newer
-				self.oldest.older = None
+				if self.oldest:
+					self.oldest.older = None
 				del(self.have[temp.key])
 				del(temp)
 			temp = CacheValue(key, value)
