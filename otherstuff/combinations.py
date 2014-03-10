@@ -6,7 +6,7 @@ This was from an interview I did.
 The Question
 ------------
 
-> Given a set of characters, produce all permutations of subsets from
+> Given a set of characters, produce all combinations of subsets from
 > the characters in the set including the empty set and the set itself.
 >
 > Examples:
@@ -20,7 +20,7 @@ My Notes
 
 I'll say this: I didn't get the right solution in the interview. I got
 a working answer fairly fast doing some pointer-type code with indices
-and windows/slices on the iterables, but it missed some permutations.
+and windows/slices on the iterables, but it missed some combinations.
 
 As time ran down I was getting closer to the solution but didn't have
 time to code it. This bugged me. I completed the code on the way home
@@ -51,34 +51,34 @@ In any case: I give you the proper solution. An O(2^N) algorithm that
 produces the correct output.
 '''
 
-def permutations(iterable):
+def combinations(iterable):
 	'''
-	For an iterable set, return all the permutations of things in the
+	For an iterable set, return all the combinations of things in the
 	set as a list. Inclues the empty set and the set itself.
 
-	>>> permutations('')
+	>>> combinations('')
 	['']
-	>>> len(permutations(''))
+	>>> len(combinations(''))
 	1
-	>>> permutations('a')
+	>>> combinations('a')
 	['', 'a']
-	>>> len(permutations('a'))
+	>>> len(combinations('a'))
 	2
-	>>> permutations('ab')
+	>>> combinations('ab')
 	['', 'a', 'b', 'ab']
-	>>> len(permutations('ab'))
+	>>> len(combinations('ab'))
 	4
-	>>> permutations('abc')
+	>>> combinations('abc')
 	['', 'a', 'b', 'ab', 'c', 'ac', 'bc', 'abc']
-	>>> len(permutations('abc'))
+	>>> len(combinations('abc'))
 	8
-	>>> permutations('abcd')
+	>>> combinations('abcd')
 	['', 'a', 'b', 'ab', 'c', 'ac', 'bc', 'abc', 'd', 'ad', 'bd', 'abd', 'cd', 'acd', 'bcd', 'abcd']
-	>>> len(permutations('abcd'))
+	>>> len(combinations('abcd'))
 	16
-	>>> len(permutations('abcde'))
+	>>> len(combinations('abcde'))
 	32
-	>>> len(permutations('abcdef'))
+	>>> len(combinations('abcdef'))
 	64
 	'''
 	# Start with the empty case:
@@ -86,20 +86,20 @@ def permutations(iterable):
 	# For each thing in iterable, permute thing with collector and
 	# then add the result to the existing collector value.
 	for character in iterable:
-		collector = collector + _permutations_helper(collector, character)
+		collector = collector + _combinations_helper(collector, character)
 	return collector
 
-def _permutations_helper(iterable, character):
+def _combinations_helper(iterable, character):
 	'''
 	For each thing in iterable, appends character to that thing and
 	stores it in an array. Returns the list of character appended to
 	each thing in iterable.
 
-	>>> _permutations_helper((''), 'a')
+	>>> _combinations_helper((''), 'a')
 	['a']
-	>>> _permutations_helper(('', 'a'), 'b')
+	>>> _combinations_helper(('', 'a'), 'b')
 	['b', 'ab']
-	>>> _permutations_helper(('', 'a', 'b'), 'c')
+	>>> _combinations_helper(('', 'a', 'b'), 'c')
 	['c', 'ac', 'bc']
 	'''
 	return_array = list()
